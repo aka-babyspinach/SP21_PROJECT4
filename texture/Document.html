@@ -1,22 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- saved from url=(0032)http://127.0.0.1:5500/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="./Document_files/main.css">
   </head>
 
-  <body>
+  <body data-new-gr-c-s-check-loaded="14.1006.0" data-gr-ext-installed="">
     <canvas id="c"></canvas>
-    <video id="video" width="320" height="240" autoplay loop>
-      <source
-        src="texture/Bouncing DVD Logo Screensaver 8K 60fps - 1 hour NO LOOP.mp4"
-        type="video/mp4"
-      />
-    </video>
-
     <script type="module">
       import * as THREE from "https://unpkg.com/three@0.127.0/build/three.module.js";
       import { OrbitControls } from "https://unpkg.com/three@0.127.0/examples/jsm/controls/OrbitControls.js";
@@ -130,57 +123,21 @@
         }
         //add cubes
         {
-          //image texture
+          const boxWidth = 60;
+          const boxHeight = 30;
+          const boxDepth = 1;
+          const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
+
+          const cubes = []; // just an array we can use to rotate the cubes
           const loader = new THREE.TextureLoader();
-          const material = new THREE.MeshBasicMaterial({
-            map: loader.load("texture/DVD-logo.png"),
-            transparent: true,
-            opacity: 0.5,
-            color: 0xff0000,
-          });
 
-          //video texture
-          var video = document.getElementById("video");
-          var texture = new THREE.VideoTexture(video);
-          texture.needsUpdate;
-          texture.minFilter = THREE.LinearFilter;
-          texture.magFilter = THREE.LinearFilter;
-          texture.format = THREE.RGBFormat;
-          texture.crossOrigin = "anonymous";
-
-          var videoObject = new THREE.Mesh(
-            new THREE.PlaneGeometry(30, 20),
-            new THREE.MeshBasicMaterial({ map: texture })
-          );
-
-          var videoObjects = [];
-          videoObjects.push(videoObject);
-
-          var i = 0;
-          while (i < 10) {
-            var newMaterial = material.clone();
-            var newVideoObjects = new THREE.Mesh(
-              new THREE.PlaneGeometry(30, 20),
-              new THREE.MeshBasicMaterial({ map: texture })
-            );
-
-            if (i % 2 == 0) {
-              newVideoObjects.position.x = 1 * i * 30 * Math.random();
-            } else {
-              newVideoObjects.position.x = -1 * i * 30 * Math.random();
-            }
-            newVideoObjects.position.y = 1 * i + 60 * Math.random();
-            newVideoObjects.position.z = -3 * i;
-            videoObjects.push(newVideoObjects);
-            i += 1;
-          }
-
-          // Add all videos to the scene
-          videoObjects.forEach(function (v) {
-            scene.add(v);
-          });
-
-          // scene.add(videoObject);
+          const material = new THREE.MeshBasicMaterial({ color: 0xffcc00 });
+          // const material = new THREE.MeshBasicMaterial({
+          //   map: loader.load("texture/DVD-logo.png"),
+          // });
+          const cube = new THREE.Mesh(geometry, material);
+          scene.add(cube);
+          cube.push(cube);
         }
 
         function resizeRendererToDisplaySize(renderer) {
@@ -201,7 +158,6 @@
           }
           renderer.render(scene, camera);
           requestAnimationFrame(render);
-          controls.update();
         }
         requestAnimationFrame(render);
         function OrbitControl(object, domElement) {
@@ -214,11 +170,6 @@
               'THREE.OrbitControls: "document" should not be used as the target "domElement". Please use "renderer.domElement" instead.'
             );
           const controls = new OrbitControls(camera, renderer.domElement);
-          controls.enableDamping = true;
-          controls.enablePan = true;
-
-          controls.update();
-
           this.object = object;
           this.domElement = domElement;
           // "target" sets the location of focus, where the object orbits around
@@ -229,9 +180,56 @@
           this.maxDistance = Infinity;
           //controls.update() must be called after any manual changes to the camera's transform
           camera.position.set(0, 40, 100);
+
+          this.keys = {
+            LEFT: "ArrowLeft",
+            UP: "ArrowUp",
+            RIGHT: "ArrowRight",
+            BOTTOM: "ArrowDown",
+          };
+
+          controls.update();
         }
       }
       main();
     </script>
-  </body>
-</html>
+  <!-- Code injected by live-server -->
+<script type="text/javascript">
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+</body></html>
