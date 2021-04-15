@@ -4,17 +4,49 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>DVD Rentals</title>
     <link rel="stylesheet" href="css/main.css" />
   </head>
 
   <body>
+    <img
+      src="texture/DVD-ADs.png"
+      alt="DVD-ADs"
+      width="width=device-width"
+      height="width=device-height"
+    />
     <canvas id="c"></canvas>
-    <video id="video" width="320" height="240" autoplay loop>
-      <source
-        src="texture/Bouncing DVD Logo Screensaver 8K 60fps - 1 hour NO LOOP.mp4"
-        type="video/mp4"
-      />
+
+    <video id="video-1" width="10" height="10" autoplay loop>
+      <source src="texture/video-1.mp4" type="video/mp4" />
+    </video>
+
+    <video id="video-2" width="10" height="10" autoplay loop>
+      <source src="texture/video-2.mov" type="video/mp4" />
+    </video>
+
+    <video id="video-3" width="10" height="10" autoplay loop>
+      <source src="texture/video-3.mov" type="video/mp4" />
+    </video>
+
+    <video id="video-4" width="10" height="10" autoplay loop>
+      <source src="texture/video-4.mp4" type="video/mp4" />
+    </video>
+
+    <video id="video-5" width="10" height="10" autoplay loop>
+      <source src="texture/video-5.mov" type="video/mp4" />
+    </video>
+
+    <video id="video-6" width="10" height="10" autoplay loop>
+      <source src="texture/video-6.mov" type="video/mp4" />
+    </video>
+
+    <video id="video-7" width="10" height="10" autoplay loop>
+      <source src="texture/video-7.mov" type="video/mp4" />
+    </video>
+
+    <video id="video-8" width="10" height="10" autoplay loop>
+      <source src="texture/video-8.mov" type="video/mp4" />
     </video>
 
     <script type="module">
@@ -34,29 +66,58 @@
         controls.target.set(0, 5, 0);
         controls.update();
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color("white");
+
+        const loader = new THREE.TextureLoader();
+        const bgTexture = loader.load("texture/dvd-rentall.jpeg");
+        scene.background = bgTexture;
 
         {
-          const planeSize = 80;
-          const loader = new THREE.TextureLoader();
-          const texture = loader.load(
-            "https://threejsfundamentals.org/threejs/resources/images/checker.png"
+          const loader = new THREE.ImageLoader();
+
+          // load a image resource
+          loader.load(
+            // resource URL
+            "texture/DVD-ADs.png",
+
+            // onLoad callback
+            function (image) {
+              // use the image, e.g. draw part of it on a canvas
+              const canvas = document.createElement("canvas");
+              const context = canvas.getContext("2d");
+              context.drawImage(image, 600, 600);
+            },
+
+            // onProgress callback currently not supported
+            undefined,
+
+            // onError callback
+            function () {
+              console.error("An error happened.");
+            }
           );
-          texture.wrapS = THREE.RepeatWrapping;
-          texture.wrapT = THREE.RepeatWrapping;
-          texture.magFilter = THREE.NearestFilter;
-          const repeats = planeSize / 4;
-          texture.repeat.set(repeats, repeats);
-          const planeGeo = new THREE.PlaneGeometry(planeSize, planeSize);
-          const planeMat = new THREE.MeshPhongMaterial({
-            map: texture,
-            side: THREE.DoubleSide,
-          });
-          const mesh = new THREE.Mesh(planeGeo, planeMat);
-          mesh.rotation.x = Math.PI * -0.5;
-          //position
-          mesh.translateZ(-30);
-          scene.add(mesh);
+        }
+
+        {
+          // const planeSize = 80;
+          // const loader = new THREE.TextureLoader();
+          // const texture = loader.load(
+          //   "https://threejsfundamentals.org/threejs/resources/images/checker.png"
+          // );
+          // texture.wrapS = THREE.RepeatWrapping;
+          // texture.wrapT = THREE.RepeatWrapping;
+          // texture.magFilter = THREE.NearestFilter;
+          // const repeats = planeSize / 4;
+          // texture.repeat.set(repeats, repeats);
+          // const planeGeo = new THREE.PlaneGeometry(planeSize, planeSize);
+          // const planeMat = new THREE.MeshPhongMaterial({
+          //   map: texture,
+          //   side: THREE.DoubleSide,
+          // });
+          // const mesh = new THREE.Mesh(planeGeo, planeMat);
+          // mesh.rotation.x = Math.PI * -0.5;
+          // //position
+          // mesh.translateZ(-30);
+          // scene.add(mesh);
         }
         {
           const skyColor = 0xb1e1ff; // light blue
@@ -131,54 +192,199 @@
         //add cubes
         {
           //image texture
-          const loader = new THREE.TextureLoader();
-          const material = new THREE.MeshBasicMaterial({
-            map: loader.load("texture/DVD-logo.png"),
-            transparent: true,
-            opacity: 0.5,
-            color: 0xff0000,
-          });
+          // const loader = new THREE.TextureLoader();
+          // const material = new THREE.MeshBasicMaterial({
+          //   map: loader.load("texture/DVD-logo.png"),
+          //   transparent: true,
+          //   opacity: 0.5,
+          //   color: 0xff0000,
+          // });
 
           //video texture
-          var video = document.getElementById("video");
-          var texture = new THREE.VideoTexture(video);
-          texture.needsUpdate;
-          texture.minFilter = THREE.LinearFilter;
-          texture.magFilter = THREE.LinearFilter;
-          texture.format = THREE.RGBFormat;
-          texture.crossOrigin = "anonymous";
+          var video1 = document.getElementById("video-1");
+          var texture1 = new THREE.VideoTexture(video1);
+          texture1.needsUpdate;
+          texture1.minFilter = THREE.LinearFilter;
+          texture1.magFilter = THREE.LinearFilter;
+          texture1.format = THREE.RGBFormat;
+          texture1.crossOrigin = "anonymous";
+
+          var video2 = document.getElementById("video-2");
+          var texture2 = new THREE.VideoTexture(video2);
+          texture2.needsUpdate;
+          texture2.minFilter = THREE.LinearFilter;
+          texture2.magFilter = THREE.LinearFilter;
+          texture2.format = THREE.RGBFormat;
+          texture2.crossOrigin = "anonymous";
+
+          var video3 = document.getElementById("video-3");
+          var texture3 = new THREE.VideoTexture(video3);
+          texture3.needsUpdate;
+          texture3.minFilter = THREE.LinearFilter;
+          texture3.magFilter = THREE.LinearFilter;
+          texture3.format = THREE.RGBFormat;
+          texture3.crossOrigin = "anonymous";
+
+          var video4 = document.getElementById("video-4");
+          var texture4 = new THREE.VideoTexture(video4);
+          texture4.needsUpdate;
+          texture4.minFilter = THREE.LinearFilter;
+          texture4.magFilter = THREE.LinearFilter;
+          texture4.format = THREE.RGBFormat;
+          texture4.crossOrigin = "anonymous";
+
+          var video5 = document.getElementById("video-5");
+          var texture5 = new THREE.VideoTexture(video5);
+          texture5.needsUpdate;
+          texture5.minFilter = THREE.LinearFilter;
+          texture5.magFilter = THREE.LinearFilter;
+          texture5.format = THREE.RGBFormat;
+          texture5.crossOrigin = "anonymous";
+
+          var video6 = document.getElementById("video-6");
+          var texture6 = new THREE.VideoTexture(video6);
+          texture6.needsUpdate;
+          texture6.minFilter = THREE.LinearFilter;
+          texture6.magFilter = THREE.LinearFilter;
+          texture6.format = THREE.RGBFormat;
+          texture6.crossOrigin = "anonymous";
+
+          var video7 = document.getElementById("video-7");
+          var texture7 = new THREE.VideoTexture(video7);
+          texture7.needsUpdate;
+          texture7.minFilter = THREE.LinearFilter;
+          texture7.magFilter = THREE.LinearFilter;
+          texture7.format = THREE.RGBFormat;
+          texture7.crossOrigin = "anonymous";
+
+          var video8 = document.getElementById("video-8");
+          var texture8 = new THREE.VideoTexture(video8);
+          texture8.needsUpdate;
+          texture8.minFilter = THREE.LinearFilter;
+          texture8.magFilter = THREE.LinearFilter;
+          texture8.format = THREE.RGBFormat;
+          texture8.crossOrigin = "anonymous";
 
           var videoObject = new THREE.Mesh(
-            new THREE.PlaneGeometry(30, 20),
-            new THREE.MeshBasicMaterial({ map: texture })
+            new THREE.PlaneGeometry(60, 40),
+            new THREE.MeshBasicMaterial({ map: texture1 })
           );
+          videoObject.position.x = 25;
+          videoObject.position.y = 0;
+          videoObject.position.z = -30;
+          videoObject.rotation.set(25, 0, 0);
+          scene.add(videoObject);
 
-          var videoObjects = [];
-          videoObjects.push(videoObject);
+          var videoObject = new THREE.Mesh(
+            new THREE.PlaneGeometry(60, 40),
+            new THREE.MeshBasicMaterial({ map: texture2 })
+          );
+          videoObject.position.x = 45;
+          videoObject.position.y = 45;
+          videoObject.position.z = -20;
+          videoObject.rotation.set(25, 0.1, 0);
+          scene.add(videoObject);
 
-          var i = 0;
-          while (i < 10) {
-            var newMaterial = material.clone();
-            var newVideoObjects = new THREE.Mesh(
-              new THREE.PlaneGeometry(30, 20),
-              new THREE.MeshBasicMaterial({ map: texture })
-            );
+          var videoObject = new THREE.Mesh(
+            new THREE.PlaneGeometry(60, 40),
+            new THREE.MeshBasicMaterial({ map: texture3 })
+          );
+          videoObject.position.x = 85;
+          videoObject.position.y = 37;
+          videoObject.position.z = 0;
+          videoObject.rotation.set(0.1, 0.3, 0);
+          scene.add(videoObject);
 
-            if (i % 2 == 0) {
-              newVideoObjects.position.x = 1 * i * 30 * Math.random();
-            } else {
-              newVideoObjects.position.x = -1 * i * 30 * Math.random();
-            }
-            newVideoObjects.position.y = 1 * i + 60 * Math.random();
-            newVideoObjects.position.z = -3 * i;
-            videoObjects.push(newVideoObjects);
-            i += 1;
-          }
+          var videoObject = new THREE.Mesh(
+            new THREE.PlaneGeometry(60, 40),
+            new THREE.MeshBasicMaterial({ map: texture4 })
+          );
+          videoObject.position.x = -55;
+          videoObject.position.y = -3;
+          videoObject.position.z = -30;
+          videoObject.rotation.set(0, 0.3, 0);
+          scene.add(videoObject);
 
-          // Add all videos to the scene
-          videoObjects.forEach(function (v) {
-            scene.add(v);
-          });
+          var videoObject = new THREE.Mesh(
+            new THREE.PlaneGeometry(60, 40),
+            new THREE.MeshBasicMaterial({ map: texture5 })
+          );
+          videoObject.position.x = -40;
+          videoObject.position.y = 30;
+          videoObject.position.z = -15;
+          videoObject.rotation.set(-120, -50, 0);
+          scene.add(videoObject);
+
+          var videoObject = new THREE.Mesh(
+            new THREE.PlaneGeometry(60, 40),
+            new THREE.MeshBasicMaterial({ map: texture6 })
+          );
+          videoObject.position.x = -80;
+          videoObject.position.y = 60;
+          videoObject.position.z = -30;
+          videoObject.rotation.set(120, 0, 0);
+          scene.add(videoObject);
+
+          var videoObject = new THREE.Mesh(
+            new THREE.PlaneGeometry(60, 40),
+            new THREE.MeshBasicMaterial({ map: texture7 })
+          );
+          videoObject.position.x = -10;
+          videoObject.position.y = 75;
+          videoObject.position.z = -30;
+          videoObject.rotation.set(0.2, 0, 0);
+          scene.add(videoObject);
+
+          var videoObject = new THREE.Mesh(
+            new THREE.PlaneGeometry(60, 40),
+            new THREE.MeshBasicMaterial({ map: texture8 })
+          );
+          videoObject.position.x = 75;
+          videoObject.position.y = 85;
+          videoObject.position.z = -40;
+          videoObject.rotation.set(120, 0, 0);
+          scene.add(videoObject);
+
+          //videoObjects.push(videoObject);
+
+          // var videoObjects = [];
+          // videoObjects.push(videoObject);
+
+          // var i = 0;
+          // while (i < 10) {
+          //   var newMaterial = material.clone();
+          //   var newVideoObjects = new THREE.Mesh(
+          //     new THREE.PlaneGeometry(45, 30),
+          //     new THREE.MeshBasicMaterial({ map: texture })
+          //   );
+
+          //   if (i % 2 == 0) {
+          //     newVideoObjects.position.x = i * 20 * Math.random() + 5;
+          //   } else {
+          //     newVideoObjects.position.x = -(i * 20 * Math.random()) + 5;
+          //   }
+
+          //   newVideoObjects.position.y = (Math.random() - 0.5) * 100 + 30;
+          //   newVideoObjects.position.z = -(Math.random() * 150);
+          //   videoObjects.push(newVideoObjects);
+
+          //   var rotateX = 0;
+          //   var rotateY = i * Math.random() * 10;
+          //   var rotateZ = i * Math.random() * 20;
+          //   if (i % 2 == 0) {
+          //     newVideoObjects.rotation.set(0, rotateY, rotateZ);
+          //   } else {
+          //     newVideoObjects.rotation.set(0, -rotateY, -rotateZ);
+          //   }
+
+          //   //newVideoObjects.rotation.set(rotateX, rotateY, rotateZ);
+          //   i += 1;
+          // }
+
+          // // Add all videos to the scene
+          // videoObjects.forEach(function (v) {
+          //   scene.add(v);
+          // });
 
           // scene.add(videoObject);
         }
